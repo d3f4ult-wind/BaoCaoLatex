@@ -1,0 +1,29 @@
+{
+    "latex-workshop.latex.tools": [
+        {
+            "name": "dockerlatex",
+            "command": "docker",
+            "args": [
+                "run",
+                "--rm",
+                "-v",
+                "%DIR%:/workdir",
+                "-w",
+                "/workdir",
+                "ghcr.io/xu-cheng/texlive-debian:latest",
+                "latexmk",
+                "-pdf",
+                "DoAn.tex"
+            ]
+        }
+    ],
+
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "Docker LaTeX",
+            "tools": [
+                "dockerlatex"
+            ]
+        }
+    ]
+}
