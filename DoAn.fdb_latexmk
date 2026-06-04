@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex DoAn"] 1780394728.89018 "DoAn.aux" "DoAn.bbl" "DoAn" 1780396305.61291 0
+["bibtex DoAn"] 1780474611.96928 "DoAn.aux" "DoAn.bbl" "DoAn" 1780475263.24608 0
   "./Danh_sach_tai_lieu_tham_khao.bib" 1779869268.13601 1488 c84ec2be0e7384c9343be26b8c6eb7b7 ""
-  "./DoAn-blx.bib" 1780396304.77284 343 eecd58be191eac03682f8fda492bb690 ""
+  "./DoAn-blx.bib" 1780475262.37874 343 eecd58be191eac03682f8fda492bb690 ""
   "/opt/texlive/texdir/texmf-dist/bibtex/bst/biblatex/biblatex.bst" 1752177141 65510 9a2a51799b543ff279b8ea2dd91ec499 ""
-  "DoAn.aux" 1780396304.68136 14789 95a7c48def08baa1e1249c6c9a990694 "pdflatex"
+  "DoAn.aux" 1780475262.29107 14789 32a294540c62fdf1ef7846aa66db7515 "pdflatex"
   (generated)
   "DoAn.bbl"
   "DoAn.blg"
   (rewritten before read)
-["pdflatex"] 1780396299.69631 "DoAn.tex" "DoAn.pdf" "DoAn" 1780396305.62188 0
+["pdflatex"] 1780475256.55589 "DoAn.tex" "DoAn.pdf" "DoAn" 1780475263.25674 0
   "/opt/texlive/texdir/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/opt/texlive/texdir/texmf-dist/fonts/enc/dvips/vntex/t5.enc" 1136849721 7824 21ade6c3c7fd67cb4ace8dbc91c53118 ""
   "/opt/texlive/texdir/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -211,9 +211,9 @@
   "/opt/texlive/texdir/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1775013428 5573030 6f5fa77fb8e40ac0e15232860e2fb745 ""
   "/opt/texlive/texdir/texmf-var/web2c/pdftex/pdflatex.fmt" 1775013482 3648524 1c06cc373c2017ad46b8033641c76fd1 ""
   "/opt/texlive/texdir/texmf.cnf" 1775013424 555 bd60ff59e4d560b42d96b004436f91d3 ""
-  "Bia.tex" 1779869268.15465 1661 12d3d3239971f9c0a4c1a1485d16a405 ""
-  "Bia_lot.tex" 1779869268.06985 1438 5d68721e4b4da65967bb488662ed3a10 ""
-  "Chuong/0_2_Loi_cam_on.tex" 1779869268.05622 513 811234bc7fe0d90f8a5ae2df5678a53d ""
+  "Bia.tex" 1780474749.07728 1689 e27d9043f776a71e3c547e7be14d8ab6 ""
+  "Bia_lot.tex" 1780474776.01168 1466 9d631df743c613aa158d0e6201b9e051 ""
+  "Chuong/0_2_Loi_cam_on.tex" 1780475139.563 933 48cfec1e328cd2d677838b97f3fb7375 ""
   "Chuong/0_3_Tom_tat_noi_dung.tex" 1779869268.0492 1048 3097ebaf912daec2f73f59b4729747e9 ""
   "Chuong/0_4_Tom_tat_noi_dung_English.tex" 1779869268.0422 625 bc88fa923884cf7b768cb64eb62537c5 ""
   "Chuong/1_Gioi_thieu.tex" 1779869268.03568 8910 ad4465f56e42493fb331a05a47894dfb ""
@@ -225,14 +225,14 @@
   "Chuong/7_Luu_y_tai_lieu_tham_khao.tex" 1779869267.99372 2973 808afe2b73ced552fe7399ab9250d935 ""
   "Chuong/Phu_luc_A.tex" 1779869267.98721 9378 3e8888d4f8ea75fb89c3c4469cc97c55 ""
   "Chuong/Phu_luc_B.tex" 1779869267.97854 404 f941ff7d7d51c116a1fd2785a57b73bf ""
-  "DoAn.aux" 1780396304.68136 14789 95a7c48def08baa1e1249c6c9a990694 "pdflatex"
-  "DoAn.bbl" 1780394728.98793 5039 9d609aaff3e8cc5d52d86fa2377c7fa0 "bibtex DoAn"
-  "DoAn.lof" 1780396304.79043 754 39dab6e8d94b044dfd2651c262aab5d2 "pdflatex"
-  "DoAn.lot" 1780396304.79343 436 ad6ce00bbac790386494ee5a97ee1628 "pdflatex"
-  "DoAn.out" 1780396304.73928 9207 55afd24778fd8e2055487b77162f430f "pdflatex"
-  "DoAn.run.xml" 1780396304.78744 2637 426db4abe3bb579f81bd36ba1edc66d0 "pdflatex"
+  "DoAn.aux" 1780475262.29107 14789 32a294540c62fdf1ef7846aa66db7515 "pdflatex"
+  "DoAn.bbl" 1780474612.07333 5039 9d609aaff3e8cc5d52d86fa2377c7fa0 "bibtex DoAn"
+  "DoAn.lof" 1780475262.3943 754 39dab6e8d94b044dfd2651c262aab5d2 "pdflatex"
+  "DoAn.lot" 1780475262.3967 436 ad6ce00bbac790386494ee5a97ee1628 "pdflatex"
+  "DoAn.out" 1780475262.33835 9207 55afd24778fd8e2055487b77162f430f "pdflatex"
+  "DoAn.run.xml" 1780475262.39182 2637 426db4abe3bb579f81bd36ba1edc66d0 "pdflatex"
   "DoAn.tex" 1780394679.64833 10741 6f1720ed8652c699cd2e550aec624496 ""
-  "DoAn.toc" 1780396304.78944 5332 474fcb19bbec8ba4cefae1d84a5b3f54 "pdflatex"
+  "DoAn.toc" 1780475262.39329 5332 474fcb19bbec8ba4cefae1d84a5b3f54 "pdflatex"
   "Hinhve/Bia.PNG" 1779869268.09105 413113 993b5d9e3ca6e4172d754217421a632c ""
   "Hinhve/GayBia.PNG" 1779869268.08153 191331 069c28aad9aae33fa0cf3c5082fbc395 ""
   "Hinhve/IoT.png" 1779869268.11981 78538 f9af89991a494178dc80a33473eba6a6 ""
