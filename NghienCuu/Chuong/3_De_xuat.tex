@@ -5,12 +5,56 @@
 
 Phần này mô tả tổng quan giải pháp gồm những bước chính nào, hoạt động ra sao. Mục tiêu của phần này là cho người đọc một cái nhìn tổng thể về giải pháp. Để cho dễ hiểu thì nên có một biểu đồ mô tả luồng hoạt động của giải pháp đề xuất. 
 
-\section{Tên của nội dung chi tiết thứ 1}
-Tên của các chương này đặt theo nội dung mà sinh viên sẽ trình bày trong từng chương. 
+\section{Phát biểu bài toán}
 
-Các chương tiếp theo mô tả chi tiết về các bước, các thuật toán trong giải pháp đề xuất. Có thể trình bày pseudocode cho từng bước. Chú ý, pseudocode chỉ có tác dụng làm chi tiết hoá giải thuật chứ không thay thế được phần thuyết minh về giải thuật. Đối với những chi tiết kỹ thuật khó hiểu nên có các hình minh hoạ để người đọc dễ hiểu. Mỗi một thuật toán/bước thực hiện nên tách ra thành một chương. 
+\section{Kiến trúc Hybrid Firewall tổng thể}
 
-\section{Tên của nội dung chi tiết thứ 2}
+\section{Luồng xử lý gói tin}
 
+\section{Thiết kế Tier 1 — Adaptive Mitigation}
+
+\subsection{Tổng quan Tier 1}
+
+\subsection{geo\_trust\_map}
+
+\subsection{trusted\_map}
+
+\subsection{mitigation\_map}
+
+\subsection{Cơ chế Probabilistic Drop}
+
+\section{Thiết kế Tier 2 — Per-IP Defense}
+
+\subsection{Tổng quan Tier 2}
+
+\subsection{rate\_limit\_map}
+
+\subsection{auto\_block\_map}
+
+\subsection{subnet\_map và rule\_map}
+
+\section{Watcher Daemon và cơ chế Adaptive}
+
+\subsection{Kiến trúc Watcher}
+
+\subsection{Telemetry và Sliding Window}
+
+\subsection{Hysteresis — Escalation và De-escalation}
+
+\subsection{Tích hợp tín hiệu từ Suricata và Iptables}
+
+\subsection{Cơ chế Manual Override}
+
+\section{Control Plane}
+
+\subsection{Go Controller}
+
+\subsection{Conntrack Listener và trusted\_map}
+
+\subsection{Admin Seed và geo\_trust\_map}
+
+\subsection{Thiết kế REST API}
+
+\section{Nguyên tắc thiết kế}
 
 \end{document}
