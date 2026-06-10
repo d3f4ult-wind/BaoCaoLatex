@@ -15,116 +15,123 @@
 \contentsline {chapter}{\numberline {2}NỀN TẢNG LÝ THUYẾT}{4}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Ngữ cảnh của bài toán}{4}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Các kết quả nghiên cứu tương tự}{4}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Linux Networking Stack}{5}{section.2.3}%
-\contentsline {section}{\numberline {2.4}eBPF}{5}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Lịch sử và tổng quan}{5}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Cơ chế hoạt động}{5}{subsection.2.4.2}%
-\contentsline {subsection}{\numberline {2.4.3}BPF Maps}{5}{subsection.2.4.3}%
-\contentsline {section}{\numberline {2.5}XDP}{5}{section.2.5}%
-\contentsline {subsection}{\numberline {2.5.1}Tổng quan và vị trí trong kernel}{5}{subsection.2.5.1}%
-\contentsline {subsection}{\numberline {2.5.2}Các chế độ hoạt động}{5}{subsection.2.5.2}%
-\contentsline {subsection}{\numberline {2.5.3}Các return code}{5}{subsection.2.5.3}%
-\contentsline {subsection}{\numberline {2.5.4}So sánh hiệu năng với iptables}{5}{subsection.2.5.4}%
-\contentsline {section}{\numberline {2.6}Firewall phân tầng}{5}{section.2.6}%
-\contentsline {subsection}{\numberline {2.6.1}Lọc gói tin tầng 3, tầng 4}{5}{subsection.2.6.1}%
-\contentsline {subsection}{\numberline {2.6.2}Lọc trạng thái tầng 4}{5}{subsection.2.6.2}%
-\contentsline {subsection}{\numberline {2.6.3}Kiểm tra gói tin tầng 7}{5}{subsection.2.6.3}%
-\contentsline {section}{\numberline {2.7}Các dạng tấn công từ chối dịch vụ}{5}{section.2.7}%
-\contentsline {subsection}{\numberline {2.7.1}Tấn công SYN Flood}{5}{subsection.2.7.1}%
-\contentsline {subsection}{\numberline {2.7.2}Tấn công UDP Flood}{5}{subsection.2.7.2}%
-\contentsline {subsection}{\numberline {2.7.3}Tấn công HTTP Flood}{5}{subsection.2.7.3}%
-\contentsline {subsection}{\numberline {2.7.4}Slowloris}{5}{subsection.2.7.4}%
-\contentsline {subsection}{\numberline {2.7.5}IP Spoofing và Random Source Flooding}{5}{subsection.2.7.5}%
-\contentsline {section}{\numberline {2.8}Random Early Detection (RED) và Weighted RED (WRED)}{5}{section.2.8}%
-\contentsline {subsection}{\numberline {2.8.1}Cơ chế Random Early Detection (RED)}{5}{subsection.2.8.1}%
-\contentsline {subsection}{\numberline {2.8.2}Weighted RED và ưu tiên theo loại traffic}{5}{subsection.2.8.2}%
-\contentsline {subsection}{\numberline {2.8.3}Ứng dụng Probabilistic Drop trong môi trường DDoS}{5}{subsection.2.8.3}%
-\contentsline {section}{\numberline {2.9}GeoIP, ASN và định dạng MMDB}{5}{section.2.9}%
-\contentsline {subsection}{\numberline {2.9.1}Tên của kiến thức nền tảng số 2.1}{5}{subsection.2.9.1}%
-\contentsline {section}{\numberline {2.10}Iptables và Nftables}{5}{section.2.10}%
-\contentsline {section}{\numberline {2.11}Suricata}{5}{section.2.11}%
-\contentsline {section}{\numberline {2.12} Connection Tracking (Conntrack)}{5}{section.2.12}%
-\contentsline {chapter}{\numberline {3}PHƯƠNG PHÁP ĐỀ XUẤT}{6}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Tổng quan giải pháp}{6}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Phát biểu bài toán}{6}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Kiến trúc Hybrid Firewall tổng thể}{6}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Luồng xử lý gói tin}{6}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Thiết kế Tier 1 — Adaptive Mitigation}{6}{section.3.5}%
-\contentsline {subsection}{\numberline {3.5.1}Tổng quan Tier 1}{6}{subsection.3.5.1}%
-\contentsline {subsection}{\numberline {3.5.2}geo\_trust\_map}{6}{subsection.3.5.2}%
-\contentsline {subsection}{\numberline {3.5.3}trusted\_map}{6}{subsection.3.5.3}%
-\contentsline {subsection}{\numberline {3.5.4}mitigation\_map}{6}{subsection.3.5.4}%
-\contentsline {subsection}{\numberline {3.5.5}Cơ chế Probabilistic Drop}{6}{subsection.3.5.5}%
-\contentsline {section}{\numberline {3.6}Thiết kế Tier 2 — Per-IP Defense}{6}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}Tổng quan Tier 2}{6}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {3.6.2}rate\_limit\_map}{6}{subsection.3.6.2}%
-\contentsline {subsection}{\numberline {3.6.3}auto\_block\_map}{6}{subsection.3.6.3}%
-\contentsline {subsection}{\numberline {3.6.4}subnet\_map và rule\_map}{6}{subsection.3.6.4}%
-\contentsline {section}{\numberline {3.7}Watcher Daemon và cơ chế Adaptive}{6}{section.3.7}%
-\contentsline {subsection}{\numberline {3.7.1}Kiến trúc Watcher}{6}{subsection.3.7.1}%
-\contentsline {subsection}{\numberline {3.7.2}Telemetry và Sliding Window}{6}{subsection.3.7.2}%
-\contentsline {subsection}{\numberline {3.7.3}Hysteresis — Escalation và De-escalation}{6}{subsection.3.7.3}%
-\contentsline {subsection}{\numberline {3.7.4}Tích hợp tín hiệu từ Suricata và Iptables}{6}{subsection.3.7.4}%
-\contentsline {subsection}{\numberline {3.7.5}Cơ chế Manual Override}{6}{subsection.3.7.5}%
-\contentsline {section}{\numberline {3.8}Control Plane}{6}{section.3.8}%
-\contentsline {subsection}{\numberline {3.8.1}Go Controller}{6}{subsection.3.8.1}%
-\contentsline {subsection}{\numberline {3.8.2}Conntrack Listener và trusted\_map}{6}{subsection.3.8.2}%
-\contentsline {subsection}{\numberline {3.8.3}Admin Seed và geo\_trust\_map}{6}{subsection.3.8.3}%
-\contentsline {subsection}{\numberline {3.8.4}Thiết kế REST API}{6}{subsection.3.8.4}%
-\contentsline {section}{\numberline {3.9}Nguyên tắc thiết kế}{6}{section.3.9}%
-\contentsline {chapter}{\numberline {4}TRIỂN KHAI HỆ THỐNG}{7}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Môi trường triển khai}{7}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Cấu hình phần cứng}{7}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Cấu hình phần mềm}{7}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Mô hình máy ảo}{7}{subsection.4.1.3}%
-\contentsline {section}{\numberline {4.2}Cấu trúc mã nguồn}{7}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Tổng quan cấu trúc thư mục}{7}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Phần kế thừa và phần mở rộng}{7}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Các thành phần chính}{7}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}XDP Program}{7}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Go Controller}{7}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}REST API}{7}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.3.4}Web UI}{7}{subsection.4.3.4}%
-\contentsline {section}{\numberline {4.4}Các chức năng chính}{7}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Quản lý Rule}{7}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Quản lý Tier 1}{7}{subsection.4.4.2}%
-\contentsline {subsection}{\numberline {4.4.3}Quản lý Tier 2}{7}{subsection.4.4.3}%
-\contentsline {subsection}{\numberline {4.4.4}Theo dõi Telemetry}{7}{subsection.4.4.4}%
-\contentsline {section}{\numberline {4.5}Kết quả triển khai}{7}{section.4.5}%
-\contentsline {chapter}{\numberline {5}THỰC NGHIỆM VÀ ĐÁNH GIÁ}{8}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Mô hình thực nghiệm}{8}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Mô hình hệ thống}{8}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}Công cụ và phương pháp đo lường}{8}{subsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.1.3}Các tham số đánh giá}{8}{subsection.5.1.3}%
-\contentsline {section}{\numberline {5.2}Kịch bản Baseline}{8}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Kịch bản SYN Flood với IP cố định}{8}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Kịch bản Random Source Flood}{8}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Kịch bản HTTP Application Layer Attack}{8}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Phân tích kết quả}{8}{section.5.6}%
-\contentsline {subsection}{\numberline {5.6.1}Hiệu quả của Tier 1 với Random Source Flood}{8}{subsection.5.6.1}%
-\contentsline {subsection}{\numberline {5.6.2}Hiệu quả của Tier 2 với IP cố định}{8}{subsection.5.6.2}%
-\contentsline {subsection}{\numberline {5.6.3}Vai trò của Geo Trust}{8}{subsection.5.6.3}%
-\contentsline {subsection}{\numberline {5.6.4}Vai trò của Suricata và Iptables}{8}{subsection.5.6.4}%
-\contentsline {section}{\numberline {5.7}Hạn chế của hệ thống}{8}{section.5.7}%
-\contentsline {chapter}{\numberline {6}KẾT LUẬN}{9}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Kết luận}{9}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Hướng phát triển trong tương lai}{9}{section.6.2}%
-\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{12}{section*.10}%
-\contentsline {chapter}{PHỤ LỤC}{14}{section*.11}%
+\contentsline {section}{\numberline {2.3}Vòng đời của một gói tin trong Linux Networking Stack}{4}{section.2.3}%
+\contentsline {section}{\numberline {2.4}eBPF}{6}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Lịch sử và tổng quan}{6}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Cơ chế hoạt động và vòng đời của chương trình eBPF}{6}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}BPF Maps}{8}{subsection.2.4.3}%
+\contentsline {section}{\numberline {2.5}XDP}{9}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Tổng quan và vị trí trong kernel}{9}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Các chế độ hoạt động}{9}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}Các return code}{10}{subsection.2.5.3}%
+\contentsline {section}{\numberline {2.6}Firewall phân tầng}{10}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Lọc gói tin tầng 3, tầng 4}{10}{subsection.2.6.1}%
+\contentsline {subsection}{\numberline {2.6.2}Lọc trạng thái tầng 4}{11}{subsection.2.6.2}%
+\contentsline {subsection}{\numberline {2.6.3}Kiểm tra gói tin tầng 7}{11}{subsection.2.6.3}%
+\contentsline {section}{\numberline {2.7}Các dạng tấn công từ chối dịch vụ}{12}{section.2.7}%
+\contentsline {subsection}{\numberline {2.7.1}Tấn công SYN Flood}{12}{subsection.2.7.1}%
+\contentsline {subsection}{\numberline {2.7.2}Tấn công UDP Flood}{12}{subsection.2.7.2}%
+\contentsline {subsection}{\numberline {2.7.3}Tấn công HTTP Flood}{13}{subsection.2.7.3}%
+\contentsline {subsection}{\numberline {2.7.4}Slowloris}{13}{subsection.2.7.4}%
+\contentsline {subsection}{\numberline {2.7.5}IP Spoofing và Random Source Flooding}{13}{subsection.2.7.5}%
+\contentsline {section}{\numberline {2.8}Random Early Detection (RED) và Weighted RED (WRED)}{14}{section.2.8}%
+\contentsline {subsection}{\numberline {2.8.1}Cơ chế Random Early Detection (RED)}{14}{subsection.2.8.1}%
+\contentsline {subsection}{\numberline {2.8.2}Weighted RED và ưu tiên theo loại traffic}{14}{subsection.2.8.2}%
+\contentsline {subsection}{\numberline {2.8.3}Ứng dụng Probabilistic Drop trong môi trường DDoS}{15}{subsection.2.8.3}%
+\contentsline {section}{\numberline {2.9}GeoIP, ASN và định dạng MMDB}{15}{section.2.9}%
+\contentsline {subsection}{\numberline {2.9.1}Khái niệm GeoIP và ASN}{15}{subsection.2.9.1}%
+\contentsline {subsection}{\numberline {2.9.2}Định dạng cơ sở dữ liệu MaxMind DB (MMDB)}{16}{subsection.2.9.2}%
+\contentsline {section}{\numberline {2.10}Iptables và Nftables}{16}{section.2.10}%
+\contentsline {subsection}{\numberline {2.10.1}Kiến trúc Iptables và Netfilter}{16}{subsection.2.10.1}%
+\contentsline {subsection}{\numberline {2.10.2}Sự chuyển dịch sang Nftables}{16}{subsection.2.10.2}%
+\contentsline {section}{\numberline {2.11}Suricata}{17}{section.2.11}%
+\contentsline {subsection}{\numberline {2.11.1}Tổng quan về Suricata}{17}{subsection.2.11.1}%
+\contentsline {subsection}{\numberline {2.11.2}Vai trò trong kiểm tra gói tin sâu (DPI)}{17}{subsection.2.11.2}%
+\contentsline {section}{\numberline {2.12}Connection Tracking (Conntrack)}{17}{section.2.12}%
+\contentsline {subsection}{\numberline {2.12.1}Nguyên lý hoạt động}{17}{subsection.2.12.1}%
+\contentsline {subsection}{\numberline {2.12.2}Conntrack trong các hệ thống hiệu năng cao}{17}{subsection.2.12.2}%
+\contentsline {section}{\numberline {2.13}Tổng kết chương}{18}{section.2.13}%
+\contentsline {chapter}{\numberline {3}PHƯƠNG PHÁP ĐỀ XUẤT}{19}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Tổng quan giải pháp}{19}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Phát biểu bài toán}{19}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Kiến trúc Hybrid Firewall tổng thể}{19}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Luồng xử lý gói tin}{19}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Thiết kế Tier 1 — Adaptive Mitigation}{19}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Tổng quan Tier 1}{19}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}geo\_trust\_map}{19}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}trusted\_map}{19}{subsection.3.5.3}%
+\contentsline {subsection}{\numberline {3.5.4}mitigation\_map}{19}{subsection.3.5.4}%
+\contentsline {subsection}{\numberline {3.5.5}Cơ chế Probabilistic Drop}{19}{subsection.3.5.5}%
+\contentsline {section}{\numberline {3.6}Thiết kế Tier 2 — Per-IP Defense}{19}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Tổng quan Tier 2}{19}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}rate\_limit\_map}{19}{subsection.3.6.2}%
+\contentsline {subsection}{\numberline {3.6.3}auto\_block\_map}{19}{subsection.3.6.3}%
+\contentsline {subsection}{\numberline {3.6.4}subnet\_map và rule\_map}{19}{subsection.3.6.4}%
+\contentsline {section}{\numberline {3.7}Watcher Daemon và cơ chế Adaptive}{19}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}Kiến trúc Watcher}{19}{subsection.3.7.1}%
+\contentsline {subsection}{\numberline {3.7.2}Telemetry và Sliding Window}{19}{subsection.3.7.2}%
+\contentsline {subsection}{\numberline {3.7.3}Hysteresis — Escalation và De-escalation}{19}{subsection.3.7.3}%
+\contentsline {subsection}{\numberline {3.7.4}Tích hợp tín hiệu từ Suricata và Iptables}{19}{subsection.3.7.4}%
+\contentsline {subsection}{\numberline {3.7.5}Cơ chế Manual Override}{19}{subsection.3.7.5}%
+\contentsline {section}{\numberline {3.8}Control Plane}{19}{section.3.8}%
+\contentsline {subsection}{\numberline {3.8.1}Go Controller}{19}{subsection.3.8.1}%
+\contentsline {subsection}{\numberline {3.8.2}Conntrack Listener và trusted\_map}{19}{subsection.3.8.2}%
+\contentsline {subsection}{\numberline {3.8.3}Admin Seed và geo\_trust\_map}{19}{subsection.3.8.3}%
+\contentsline {subsection}{\numberline {3.8.4}Thiết kế REST API}{19}{subsection.3.8.4}%
+\contentsline {section}{\numberline {3.9}Nguyên tắc thiết kế}{19}{section.3.9}%
+\contentsline {chapter}{\numberline {4}TRIỂN KHAI HỆ THỐNG}{20}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Môi trường triển khai}{20}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Cấu hình phần cứng}{20}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Cấu hình phần mềm}{20}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Mô hình máy ảo}{20}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}Cấu trúc mã nguồn}{20}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Tổng quan cấu trúc thư mục}{20}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Phần kế thừa và phần mở rộng}{20}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}Các thành phần chính}{20}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}XDP Program}{20}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Go Controller}{20}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}REST API}{20}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Web UI}{20}{subsection.4.3.4}%
+\contentsline {section}{\numberline {4.4}Các chức năng chính}{20}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Quản lý Rule}{20}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Quản lý Tier 1}{20}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Quản lý Tier 2}{20}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Theo dõi Telemetry}{20}{subsection.4.4.4}%
+\contentsline {section}{\numberline {4.5}Kết quả triển khai}{20}{section.4.5}%
+\contentsline {chapter}{\numberline {5}THỰC NGHIỆM VÀ ĐÁNH GIÁ}{21}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Mô hình thực nghiệm}{21}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Mô hình hệ thống}{21}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Công cụ và phương pháp đo lường}{21}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Các tham số đánh giá}{21}{subsection.5.1.3}%
+\contentsline {section}{\numberline {5.2}Kịch bản Baseline}{21}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Kịch bản SYN Flood với IP cố định}{21}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Kịch bản Random Source Flood}{21}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Kịch bản HTTP Application Layer Attack}{21}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Phân tích kết quả}{21}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}Hiệu quả của Tier 1 với Random Source Flood}{21}{subsection.5.6.1}%
+\contentsline {subsection}{\numberline {5.6.2}Hiệu quả của Tier 2 với IP cố định}{21}{subsection.5.6.2}%
+\contentsline {subsection}{\numberline {5.6.3}Vai trò của Geo Trust}{21}{subsection.5.6.3}%
+\contentsline {subsection}{\numberline {5.6.4}Vai trò của Suricata và Iptables}{21}{subsection.5.6.4}%
+\contentsline {section}{\numberline {5.7}Hạn chế của hệ thống}{21}{section.5.7}%
+\contentsline {chapter}{\numberline {6}KẾT LUẬN}{22}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Kết luận}{22}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Hướng phát triển trong tương lai}{22}{section.6.2}%
+\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{26}{section*.10}%
+\contentsline {chapter}{PHỤ LỤC}{28}{section*.11}%
 \ttl@change@i {\@ne }{chapter}{0.0cm}{\bfseries \vspace {0.3cm}}{{\bfseries {\scshape } \thecontentslabel .\ }}{}{\titlerule *[0.3pc]{.}\contentspage }\relax 
 \ttl@change@v {chapter}{}{}{}\relax 
-\contentsline {chapter}{\numberline {A}HƯỚNG DẪN VIẾT ĐATN}{14}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Quy định chung}{14}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Ngành học}{15}{section.A.2}%
-\contentsline {section}{\numberline {A.3}Đánh dấu (bullet) và đánh số (numering)}{15}{section.A.3}%
-\contentsline {section}{\numberline {A.4}Cách thêm bảng}{16}{section.A.4}%
-\contentsline {section}{\numberline {A.5}Chèn hình ảnh}{16}{section.A.5}%
-\contentsline {section}{\numberline {A.6}Tài liệu tham khảo}{17}{section.A.6}%
-\contentsline {paragraph}{Cách liệt kê}{17}{paragraph*.14}%
-\contentsline {paragraph}{Các loại tài liệu tham khảo}{17}{paragraph*.15}%
-\contentsline {section}{\numberline {A.7}Cách viết phương trình và công thức toán học}{17}{section.A.7}%
-\contentsline {section}{\numberline {A.8}Qui cách đóng quyển}{17}{section.A.8}%
-\contentsline {chapter}{\numberline {B}ĐẶC TẢ USE CASE}{19}{appendix.B}%
-\contentsline {section}{\numberline {B.1}Đặc tả use case ``Thống kê tình hình mượn sách''}{19}{section.B.1}%
-\contentsline {section}{\numberline {B.2}Đặc tả use case ``Đăng ký làm thẻ mượn''}{19}{section.B.2}%
+\contentsline {chapter}{\numberline {A}HƯỚNG DẪN VIẾT ĐATN}{28}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Quy định chung}{28}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Ngành học}{29}{section.A.2}%
+\contentsline {section}{\numberline {A.3}Đánh dấu (bullet) và đánh số (numering)}{29}{section.A.3}%
+\contentsline {section}{\numberline {A.4}Cách thêm bảng}{30}{section.A.4}%
+\contentsline {section}{\numberline {A.5}Chèn hình ảnh}{30}{section.A.5}%
+\contentsline {section}{\numberline {A.6}Tài liệu tham khảo}{31}{section.A.6}%
+\contentsline {paragraph}{Cách liệt kê}{31}{paragraph*.14}%
+\contentsline {paragraph}{Các loại tài liệu tham khảo}{31}{paragraph*.15}%
+\contentsline {section}{\numberline {A.7}Cách viết phương trình và công thức toán học}{31}{section.A.7}%
+\contentsline {section}{\numberline {A.8}Qui cách đóng quyển}{31}{section.A.8}%
+\contentsline {chapter}{\numberline {B}ĐẶC TẢ USE CASE}{33}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Đặc tả use case ``Thống kê tình hình mượn sách''}{33}{section.B.1}%
+\contentsline {section}{\numberline {B.2}Đặc tả use case ``Đăng ký làm thẻ mượn''}{33}{section.B.2}%
 \contentsfinish 

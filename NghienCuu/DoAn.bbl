@@ -17,225 +17,501 @@
 \endgroup
 
 \datalist[entry]{none/global//global/global/global}
-  \entry{hovy1993automated}{article}{}{}
+  \entry{castillonduperron2025ebpf}{thesis}{}{}
     \name{author}{1}{}{%
-      {{hash=HEH}{%
-         family={Hovy},
-         familyi={H\bibinitperiod},
-         given={Eduard\bibnamedelima H},
-         giveni={E\bibinitperiod\bibinitdelim H\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {Elsevier Science Publishers}%
-    }
-    \strng{namehash}{HEH1}
-    \strng{fullhash}{HEH1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{number}{1-2}
-    \field{pages}{341\bibrangedash 385}
-    \field{title}{Automated discourse generation using discourse structure
-  relations}
-    \field{volume}{63}
-    \field{journaltitle}{Artificial intelligence}
-    \field{year}{1993}
-  \endentry
-
-  \entry{peterson2007computer}{book}{}{}
-    \name{author}{2}{}{%
-      {{hash=PLL}{%
-         family={Peterson},
+      {{hash=CdPK}{%
+         prefix={Castillon\bibnamedelima du},
+         prefixi={C\bibinitperiod\bibinitdelim d\bibinitperiod},
+         family={Perron},
          familyi={P\bibinitperiod},
-         given={Larry\bibnamedelima L},
-         giveni={L\bibinitperiod\bibinitdelim L\bibinitperiod},
-      }}%
-      {{hash=DBS}{%
-         family={Davie},
-         familyi={D\bibinitperiod},
-         given={Bruce\bibnamedelima S},
-         giveni={B\bibinitperiod\bibinitdelim S\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {Elsevier}%
-    }
-    \strng{namehash}{PLLDBS1}
-    \strng{fullhash}{PLLDBS1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{title}{Computer networks: a systems approach}
-    \field{year}{2007}
-  \endentry
-
-  \entry{NguyenThucHai}{book}{}{}
-    \name{author}{1}{}{%
-      {{hash=HNT}{%
-         family={Hải},
-         familyi={H\bibinitperiod},
-         given={Nguyễn\bibnamedelima Thúc},
-         giveni={N\bibinitperiod\bibinitdelim T\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {Nhà xuất bản giáo dục}%
-    }
-    \strng{namehash}{HNT1}
-    \strng{fullhash}{HNT1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{title}{Mạng máy tính và các hệ thống mở}
-    \field{year}{1999}
-  \endentry
-
-  \entry{poesio2001discourse}{inproceedings}{}{}
-    \name{author}{2}{}{%
-      {{hash=PM}{%
-         family={Poesio},
-         familyi={P\bibinitperiod},
-         given={Massimo},
-         giveni={M\bibinitperiod},
-      }}%
-      {{hash=DEB}{%
-         family={Di\bibnamedelima Eugenio},
-         familyi={D\bibinitperiod\bibinitdelim E\bibinitperiod},
-         given={Barbara},
-         giveni={B\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{PMDEB1}
-    \strng{fullhash}{PMDEB1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{booktitle}{{ESSLLI} workshop on information structure, discourse
-  structure and discourse semantics, Copenhagen, Denmark}
-    \field{pages}{129\bibrangedash 143}
-    \field{title}{Discourse structure and anaphoric accessibility}
-    \field{year}{2001}
-  \endentry
-
-  \entry{knott1996data}{thesis}{}{}
-    \name{author}{1}{}{%
-      {{hash=KA}{%
-         family={Knott},
-         familyi={K\bibinitperiod},
-         given={Alistair},
-         giveni={A\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{KA1}
-    \strng{fullhash}{KA1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{title}{A data-driven methodology for motivating a set of coherence
-  relations}
-    \list{institution}{1}{%
-      {The University of Edinburgh, {UK}}%
-    }
-    \field{type}{phdthesis}
-    \field{year}{1996}
-  \endentry
-
-  \entry{BernersTim}{misc}{}{}
-    \name{author}{1}{}{%
-      {{hash=BLT}{%
-         family={Berners-Lee},
-         familyi={B\bibinithyphendelim L\bibinitperiod},
-         given={Tim},
-         giveni={T\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{BLT1}
-    \strng{fullhash}{BLT1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{title}{Hypertext Transfer Protocol ({HTTP})}
-    \verb{url}
-    \verb ftp:/info.cern.ch/pub/www/doc/http-spec.txt.Z
-    \endverb
-    \field{urlday}{30}
-    \field{urlmonth}{09}
-    \field{urlyear}{2010}
-  \endentry
-
-  \entry{LectureA}{misc}{}{}
-    \name{author}{1}{}{%
-      {{hash=P}{%
-         family={{Princeton University}},
-         familyi={P\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{P1}
-    \strng{fullhash}{P1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{title}{WordNet}
-    \verb{url}
-    \verb http://www.cogsci.princeton.edu/~wn/index.shtml
-    \endverb
-    \field{urlday}{30}
-    \field{urlmonth}{09}
-    \field{urlyear}{2010}
-  \endentry
-
-  \entry{scott2013sdn}{inproceedings}{}{}
-    \name{author}{3}{}{%
-      {{hash=SHS}{%
-         family={Scott-Hayward},
-         familyi={S\bibinithyphendelim H\bibinitperiod},
-         given={Sandra},
-         giveni={S\bibinitperiod},
-      }}%
-      {{hash=OG}{%
-         family={O'Callaghan},
-         familyi={O\bibinitperiod},
-         given={Gemma},
-         giveni={G\bibinitperiod},
-      }}%
-      {{hash=SS}{%
-         family={Sezer},
-         familyi={S\bibinitperiod},
-         given={Sakir},
-         giveni={S\bibinitperiod},
-      }}%
-    }
-    \list{organization}{1}{%
-      {IEEE}%
-    }
-    \strng{namehash}{SHS+1}
-    \strng{fullhash}{SHSOGSS1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{booktitle}{2013 IEEE SDN For Future Networks and Services (SDN4FNS)}
-    \field{pages}{1\bibrangedash 7}
-    \field{title}{SDN security: A survey}
-    \field{year}{2013}
-  \endentry
-
-  \entry{ashton2009internet}{article}{}{}
-    \true{moreauthor}
-    \true{morelabelname}
-    \name{author}{1}{}{%
-      {{hash=AK}{%
-         family={Ashton},
-         familyi={A\bibinitperiod},
-         given={Kevin},
+         given={Killian},
          giveni={K\bibinitperiod},
       }}%
     }
-    \list{publisher}{1}{%
-      {Hauppauge, New York}%
-    }
-    \strng{namehash}{AK+1}
-    \strng{fullhash}{AK+1}
+    \strng{namehash}{PKCd1}
+    \strng{fullhash}{PKCd1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{number}{7}
-    \field{pages}{97\bibrangedash 114}
-    \field{title}{That ‘internet of things’ thing}
-    \field{volume}{22}
-    \field{journaltitle}{RFID journal}
+    \field{title}{Accelerating Container Networking with eBPF: Performance
+  Characterization, Evaluation, and Optimization}
+    \verb{url}
+    \verb https://theses.hal.science/tel-05467830v1/file/2025COAZ4024.pdf
+    \endverb
+    \list{institution}{1}{%
+      {Universite Cote d'Azur}%
+    }
+    \field{type}{phdthesis}
+    \field{year}{2025}
+    \field{urlday}{10}
+    \field{urlmonth}{06}
+    \field{urlyear}{2026}
+  \endentry
+
+  \entry{linux_skbuff}{misc}{}{}
+    \name{author}{1}{}{%
+      {{hash=L}{%
+         family={{Linux Kernel Documentation}},
+         familyi={L\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{L1}
+    \strng{fullhash}{L1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{struct sk\_buff Documentation}
+    \verb{url}
+    \verb https://docs.kernel.org/networking/skbuff.html
+    \endverb
+    \field{year}{2025}
+    \field{urlday}{10}
+    \field{urlmonth}{06}
+    \field{urlyear}{2026}
+  \endentry
+
+  \entry{mccanne1993bpf}{inproceedings}{}{}
+    \name{author}{2}{}{%
+      {{hash=MS}{%
+         family={McCanne},
+         familyi={M\bibinitperiod},
+         given={Steven},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=JV}{%
+         family={Jacobson},
+         familyi={J\bibinitperiod},
+         given={Van},
+         giveni={V\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {USENIX Association}%
+    }
+    \strng{namehash}{MSJV1}
+    \strng{fullhash}{MSJV1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{Proceedings of the USENIX Winter 1993 Conference}
+    \field{title}{The BSD Packet Filter: A New Architecture for User-level
+  Packet Capture}
+    \verb{url}
+    \verb https://www.tcpdump.org/papers/bpf-usenix93.pdf
+    \endverb
+    \field{year}{1993}
+  \endentry
+
+  \entry{linux_bpf_docs}{misc}{}{}
+    \name{author}{1}{}{%
+      {{hash=L}{%
+         family={{Linux Kernel Documentation}},
+         familyi={L\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{L1}
+    \strng{fullhash}{L1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{BPF Documentation}
+    \verb{url}
+    \verb https://docs.kernel.org/bpf/
+    \endverb
+    \field{year}{2025}
+    \field{urlday}{10}
+    \field{urlmonth}{06}
+    \field{urlyear}{2026}
+  \endentry
+
+  \entry{xdp_docs}{misc}{}{}
+    \name{author}{1}{}{%
+      {{hash=L}{%
+         family={{Linux Kernel Documentation}},
+         familyi={L\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{L1}
+    \strng{fullhash}{L1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{eXpress Data Path (XDP)}
+    \verb{url}
+    \verb https://docs.kernel.org/networking/xdp-rx-metadata.html
+    \endverb
+    \field{year}{2025}
+    \field{urlday}{10}
+    \field{urlmonth}{06}
+    \field{urlyear}{2026}
+  \endentry
+
+  \entry{benvenuti2005linux}{book}{}{}
+    \name{author}{1}{}{%
+      {{hash=BC}{%
+         family={Benvenuti},
+         familyi={B\bibinitperiod},
+         given={Christian},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {O'Reilly Media}%
+    }
+    \strng{namehash}{BC1}
+    \strng{fullhash}{BC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Understanding Linux Network Internals}
+    \field{year}{2005}
+  \endentry
+
+  \entry{cilium_bpf_docs}{misc}{}{}
+    \name{author}{1}{}{%
+      {{hash=C}{%
+         family={{Cilium Project}},
+         familyi={C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{C1}
+    \strng{fullhash}{C1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{BPF and XDP Reference Guide}
+    \verb{url}
+    \verb https://docs.cilium.io/en/stable/bpf/
+    \endverb
+    \field{year}{2025}
+    \field{urlday}{10}
+    \field{urlmonth}{06}
+    \field{urlyear}{2026}
+  \endentry
+
+  \entry{cheswick2003firewalls}{book}{}{}
+    \name{author}{3}{}{%
+      {{hash=CWR}{%
+         family={Cheswick},
+         familyi={C\bibinitperiod},
+         given={William\bibnamedelima R},
+         giveni={W\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+      {{hash=BSM}{%
+         family={Bellovin},
+         familyi={B\bibinitperiod},
+         given={Steven\bibnamedelima M},
+         giveni={S\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=RAD}{%
+         family={Rubin},
+         familyi={R\bibinitperiod},
+         given={Aviel\bibnamedelima D},
+         giveni={A\bibinitperiod\bibinitdelim D\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Addison-Wesley Professional}%
+    }
+    \strng{namehash}{CWR+1}
+    \strng{fullhash}{CWRBSMRAD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Firewalls and internet security: repelling the wily hacker}
+    \field{year}{2003}
+  \endentry
+
+  \entry{kurose2017computer}{book}{}{}
+    \name{author}{2}{}{%
+      {{hash=KJF}{%
+         family={Kurose},
+         familyi={K\bibinitperiod},
+         given={James\bibnamedelima F},
+         giveni={J\bibinitperiod\bibinitdelim F\bibinitperiod},
+      }}%
+      {{hash=RKW}{%
+         family={Ross},
+         familyi={R\bibinitperiod},
+         given={Keith\bibnamedelima W},
+         giveni={K\bibinitperiod\bibinitdelim W\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Pearson}%
+    }
+    \strng{namehash}{KJFRKW1}
+    \strng{fullhash}{KJFRKW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{edition}{7th}
+    \field{title}{Computer Networking: A Top-Down Approach}
+    \field{year}{2017}
+  \endentry
+
+  \entry{scarfone2009guidelines}{report}{}{}
+    \name{author}{2}{}{%
+      {{hash=SK}{%
+         family={Scarfone},
+         familyi={S\bibinitperiod},
+         given={Karen},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=HP}{%
+         family={Hoffman},
+         familyi={H\bibinitperiod},
+         given={Paul},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SKHP1}
+    \strng{fullhash}{SKHP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{number}{NIST Special Publication 800-41 Revision 1}
+    \field{title}{Guidelines on firewalls and firewall policy}
+    \list{institution}{2}{%
+      {National Institute of Standards}%
+      {Technology}%
+    }
+    \field{type}{techreport}
     \field{year}{2009}
+  \endentry
+
+  \entry{mirkovic2004taxonomy}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=MJ}{%
+         family={Mirkovic},
+         familyi={M\bibinitperiod},
+         given={Jelena},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=RP}{%
+         family={Reiher},
+         familyi={R\bibinitperiod},
+         given={Peter},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {ACM New York, NY, USA}%
+    }
+    \strng{namehash}{MJRP1}
+    \strng{fullhash}{MJRP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{number}{2}
+    \field{pages}{39\bibrangedash 53}
+    \field{title}{A taxonomy of DDoS attack and DDoS defense mechanisms}
+    \field{volume}{34}
+    \field{journaltitle}{ACM SIGCOMM Computer Communication Review}
+    \field{year}{2004}
+  \endentry
+
+  \entry{cambiaso2013slow}{article}{}{}
+    \name{author}{4}{}{%
+      {{hash=CE}{%
+         family={Cambiaso},
+         familyi={C\bibinitperiod},
+         given={Enrico},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=PG}{%
+         family={Papaleo},
+         familyi={P\bibinitperiod},
+         given={Gianluca},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=CG}{%
+         family={Chiola},
+         familyi={C\bibinitperiod},
+         given={Giovanni},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=AM}{%
+         family={Aiello},
+         familyi={A\bibinitperiod},
+         given={Maurizio},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Inderscience Publishers Ltd}%
+    }
+    \strng{namehash}{CE+1}
+    \strng{fullhash}{CEPGCGAM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{number}{3-4}
+    \field{pages}{300\bibrangedash 319}
+    \field{title}{Slow DoS attacks: definition and categorisation}
+    \field{volume}{1}
+    \field{journaltitle}{International Journal of Trust Management in Computing
+  and Communications}
+    \field{year}{2013}
+  \endentry
+
+  \entry{floyd1993random}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=FS}{%
+         family={Floyd},
+         familyi={F\bibinitperiod},
+         given={Sally},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=JV}{%
+         family={Jacobson},
+         familyi={J\bibinitperiod},
+         given={Van},
+         giveni={V\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{FSJV1}
+    \strng{fullhash}{FSJV1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{number}{4}
+    \field{pages}{397\bibrangedash 413}
+    \field{title}{Random early detection gateways for congestion avoidance}
+    \field{volume}{1}
+    \field{journaltitle}{IEEE/ACM Transactions on networking}
+    \field{year}{1993}
+  \endentry
+
+  \entry{rfc2309}{report}{}{}
+    \true{moreauthor}
+    \true{morelabelname}
+    \name{author}{10}{}{%
+      {{hash=BB}{%
+         family={Braden},
+         familyi={B\bibinitperiod},
+         given={Bob},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=CD}{%
+         family={Clark},
+         familyi={C\bibinitperiod},
+         given={David},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=CJ}{%
+         family={Crowcroft},
+         familyi={C\bibinitperiod},
+         given={Jon},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=DB}{%
+         family={Davie},
+         familyi={D\bibinitperiod},
+         given={Bruce},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=DS}{%
+         family={Deering},
+         familyi={D\bibinitperiod},
+         given={Steve},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=ED}{%
+         family={Estrin},
+         familyi={E\bibinitperiod},
+         given={Deborah},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=FS}{%
+         family={Floyd},
+         familyi={F\bibinitperiod},
+         given={Sally},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=JV}{%
+         family={Jacobson},
+         familyi={J\bibinitperiod},
+         given={Van},
+         giveni={V\bibinitperiod},
+      }}%
+      {{hash=MG}{%
+         family={Minshall},
+         familyi={M\bibinitperiod},
+         given={Greg},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=PC}{%
+         family={Partridge},
+         familyi={P\bibinitperiod},
+         given={Craig},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BB+1}
+    \strng{fullhash}{BBCDCJDBDSEDFSJVMGPC+1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Recommendations on queue management and congestion avoidance
+  in the internet}
+    \list{institution}{1}{%
+      {RFC 2309, April}%
+    }
+    \field{type}{techreport}
+    \field{year}{1998}
+  \endentry
+
+  \entry{maxmind2025mmdb}{misc}{}{}
+    \name{author}{1}{}{%
+      {{hash=M}{%
+         family={{MaxMind}},
+         familyi={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{M1}
+    \strng{fullhash}{M1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{MaxMind DB File Format Specification}
+    \verb{url}
+    \verb https://maxmind.github.io/MaxMind-DB/
+    \endverb
+    \field{year}{2025}
+    \field{urlday}{10}
+    \field{urlmonth}{06}
+    \field{urlyear}{2026}
+  \endentry
+
+  \entry{suricata_docs}{misc}{}{}
+    \name{author}{1}{}{%
+      {{hash=O}{%
+         family={{OISF}},
+         familyi={O\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{O1}
+    \strng{fullhash}{O1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Suricata User Guide}
+    \verb{url}
+    \verb https://suricata.readthedocs.io/
+    \endverb
+    \field{year}{2025}
+    \field{urlday}{10}
+    \field{urlmonth}{06}
+    \field{urlyear}{2026}
+  \endentry
+
+  \entry{ayuso2006netfilter}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=APN}{%
+         family={Ayuso},
+         familyi={A\bibinitperiod},
+         given={Pablo\bibnamedelima Neira},
+         giveni={P\bibinitperiod\bibinitdelim N\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{APN1}
+    \strng{fullhash}{APN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{number}{3}
+    \field{pages}{34\bibrangedash 39}
+    \field{title}{Netfilter's connection tracking system}
+    \field{volume}{31}
+    \field{journaltitle}{;login: the USENIX magazine}
+    \field{year}{2006}
   \endentry
 \enddatalist
 \endinput

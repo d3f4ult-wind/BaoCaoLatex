@@ -1,6 +1,6 @@
 \documentclass[../DoAn.tex]{subfiles}
 \begin{document}
-Chương này có độ dài không quá 10 trang. Chương này sinh viên trình bày về phân tích rõ ngữ cảnh bài toán cũng như các kết quả nghiên cứu tương tự. Đồng thời, sinh viên có thể trình bày thêm về các kiến thức nền tảng. Mỗi chương nên có đoạn mở đầu chươnggiới thiệu những nội dung sẽ trình bày trong chương.
+Chương này có độ dài không quá 10 trang. Chương này sinh viên trình bày về phân tích rõ ngữ cảnh bài toán cũng như các kết quả nghiên cứu tương tự. Đồng thời, sinh viên có thể trình bày thêm về các kiến thức nền tảng. Mỗi chương nên có đoạn mở đầu chương giới thiệu những nội dung sẽ trình bày trong chương.
 
 \section{Ngữ cảnh của bài toán}
 \ldots
@@ -8,46 +8,180 @@ Chương này có độ dài không quá 10 trang. Chương này sinh viên trì
 \section{Các kết quả nghiên cứu tương tự}
 Trong phần này sinh viên trình bày các nghiên cứu liên quan (related work), chú ý phân tích rõ những ưu nhược điểm của chúng. Từ đó, nêu bật lên động lực để thực hiện nghiên cứu của đồ án này.
 
-\section{Linux Networking Stack}
+\section{Vòng đời của một gói tin trong Linux Networking Stack}
+Khi một gói tin đi vào hệ thống Linux, nó phải trải qua nhiều giai đoạn xử lý từ phần cứng đến nhân hệ điều hành trước khi được chuyển tới ứng dụng đích hoặc bị loại bỏ. Việc hiểu rõ vòng đời của gói tin là cơ sở để nghiên cứu các cơ chế xử lý mạng hiện đại như XDP, TC eBPF và Netfilter, bởi các công nghệ này đều can thiệp vào những vị trí khác nhau trong luồng xử lý của Linux Networking Stack.
 
+Giai đoạn đầu tiên bắt đầu tại card mạng (Network Interface Card - NIC). Khi tín hiệu mạng được truyền qua môi trường vật lý như cáp Ethernet hoặc cáp quang, NIC sẽ tiếp nhận tín hiệu và chuyển đổi chúng thành dữ liệu số. Để giảm tải cho CPU, NIC sử dụng cơ chế Direct Memory Access (DMA) nhằm ghi trực tiếp dữ liệu của gói tin vào các vùng nhớ đã được cấp phát trước trong RAM. Các vùng nhớ này được tổ chức dưới dạng hàng đợi nhận (Receive Ring Buffer), cho phép NIC và CPU trao đổi dữ liệu với chi phí thấp hơn so với việc CPU phải tham gia trực tiếp vào quá trình sao chép dữ liệu \cite{castillonduperron2025ebpf}.
+
+Sau khi dữ liệu được ghi vào Receive Ring Buffer, NIC cần thông báo cho hệ điều hành rằng có gói tin mới cần được xử lý. Trong điều kiện lưu lượng thấp, NIC thường sử dụng cơ chế ngắt (interrupt) để báo hiệu cho CPU. Tuy nhiên, khi số lượng gói tin tăng cao, việc tạo ngắt cho từng gói tin sẽ gây ra hiện tượng interrupt storm, làm giảm hiệu năng hệ thống. Để giải quyết vấn đề này, Linux sử dụng cơ chế New API (NAPI). Khi lưu lượng tăng, driver NIC tạm thời vô hiệu hóa các ngắt nhận gói tin và chuyển sang chế độ polling. Thay vì xử lý từng ngắt riêng lẻ, CPU sẽ chủ động đọc nhiều gói tin từ Receive Ring Buffer trong một lần polling, giúp giảm số lần chuyển ngữ cảnh và nâng cao hiệu quả xử lý mạng.
+
+Trong quá trình polling, driver NIC lấy các gói tin từ Receive Ring Buffer và chuyển chúng vào Linux Networking Stack. Tại đây, kernel tạo cấu trúc dữ liệu trung tâm gọi là socket buffer (struct sk\_buff hay skb), đại diện cho gói tin trong suốt quá trình xử lý bên trong hệ điều hành. Ngoài dữ liệu thực tế của gói tin, skb còn chứa nhiều thông tin bổ sung (metadata) phục vụ cho các thành phần khác nhau của network stack \cite{linux_skbuff}.
+
+Cấu trúc skb duy trì các offset hoặc con trỏ tới các lớp giao thức khác nhau của gói tin, bao gồm tầng liên kết dữ liệu (MAC layer), tầng mạng (Network layer) và tầng giao vận (Transport layer). Các trường như mac\_header, network\_header và transport\_header cho phép kernel truy cập trực tiếp vào các phần header tương ứng mà không cần sao chép dữ liệu nhiều lần. Việc phân tích các trường header này được thực hiện dần bởi các thành phần của Linux Networking Stack khi gói tin đi qua các tầng xử lý khác nhau.
+
+Đối với gói tin Ethernet, kernel xác định loại giao thức tầng trên thông qua trường EtherType. Nếu đây là gói tin IPv4 hoặc IPv6, gói tin sẽ được chuyển tới tầng mạng để xử lý tiếp. Tại tầng IP, kernel phân tích địa chỉ IP nguồn, địa chỉ IP đích và trường protocol nhằm xác định giao thức tầng giao vận tương ứng như TCP hoặc UDP. Sau đó, tầng giao vận tiếp tục xử lý các thông tin như cổng nguồn, cổng đích, số thứ tự gói tin và các cờ điều khiển của giao thức.
+
+Sau khi đi qua các thành phần của network stack, gói tin tiếp tục được xử lý bởi các cơ chế như Traffic Control (TC), Netfilter, định tuyến (routing) và các bảng chuyển tiếp tương ứng. Dựa trên kết quả xử lý, gói tin có thể được chấp nhận, chuyển tiếp sang giao diện mạng khác hoặc bị loại bỏ.
+
+Đối với các gói tin có đích là chính máy chủ, kernel sẽ thực hiện tra cứu socket dựa trên các thông tin đã phân tích từ header, đặc biệt là địa chỉ IP đích, giao thức và cổng đích. Nếu tìm thấy socket phù hợp, dữ liệu sẽ được đưa vào hàng đợi của socket đó để ứng dụng ở không gian người dùng (user space) có thể đọc và xử lý. Ngược lại, nếu không tồn tại socket tương ứng hoặc gói tin vi phạm các chính sách mạng của hệ thống, kernel sẽ loại bỏ gói tin hoặc phản hồi bằng các thông điệp lỗi thích hợp tùy theo giao thức được sử dụng.
+
+Toàn bộ quá trình trên thể hiện kiến trúc phân tầng của Linux Networking Stack, trong đó mỗi thành phần đảm nhận một vai trò riêng nhằm cân bằng giữa hiệu năng, khả năng mở rộng và tính linh hoạt. Đây cũng là nền tảng để các công nghệ như XDP, eBPF và Netfilter can thiệp vào luồng xử lý mạng nhằm xây dựng các giải pháp firewall và giám sát lưu lượng hiệu năng cao.
 \section{eBPF}
 \subsection{Lịch sử và tổng quan}
-\subsection{Cơ chế hoạt động}
+eBPF (Extended Berkeley Packet Filter) là công nghệ cho phép thực thi các chương trình được kiểm chứng an toàn bên trong Linux kernel mà không cần sửa đổi mã nguồn kernel hoặc phát triển các Linux Kernel Modules (LKM). Nhờ cơ chế sandbox và bộ kiểm tra (verifier), eBPF cho phép mở rộng chức năng của kernel một cách linh hoạt trong khi vẫn đảm bảo tính ổn định của hệ thống.
+
+Tiền thân của eBPF là Berkeley Packet Filter (cBPF), được Steven McCanne và Van Jacobson giới thiệu vào năm 1992 tại Lawrence Berkeley National Laboratory. Mục tiêu ban đầu của cBPF là tối ưu hóa quá trình lọc gói tin mạng bằng cách thực hiện việc kiểm tra gói tin ngay trong kernel trước khi chuyển dữ liệu lên không gian người dùng \cite{mccanne1993bpf}. Công cụ tcpdump là một trong những ứng dụng tiêu biểu sử dụng cBPF.
+
+Từ các phiên bản Linux kernel 3.x, đặc biệt từ Linux kernel 3.18 trở đi, cBPF được mở rộng thành eBPF bởi Alexei Starovoitov và Daniel Borkmann. eBPF sử dụng kiến trúc 64-bit với tập thanh ghi gồm 11 thanh ghi (R0-R10), cung cấp khả năng xử lý mạnh mẽ hơn đáng kể so với cBPF. Đồng thời, phạm vi ứng dụng của eBPF cũng được mở rộng từ lĩnh vực mạng sang nhiều lĩnh vực khác như giám sát hệ thống (observability), theo dõi thực thi (tracing), tối ưu hiệu năng và bảo mật hệ thống.
+\subsection{Cơ chế hoạt động và vòng đời của chương trình eBPF}
+Để một chương trình eBPF (Extended Berkeley Packet Filter) có thể hoạt động từ giai đoạn được viết ra cho đến khi chạy thực tế trong nhân hệ điều hành (kernel), nó phải trải qua một quy trình kiểm soát nghiêm ngặt và đa tầng. Quy trình này được thiết kế nhằm đảm bảo hai yếu tố cốt lõi: tốc độ thực thi tối ưu và tính an toàn tuyệt đối cho hệ thống, ngăn chặn mọi nguy cơ gây treo hoặc sụp đổ kernel.
+
+Quá trình đầu tiên là Biên dịch (Compilation). Thay vì viết trực tiếp mã máy, lập trình viên thường phát triển mã nguồn eBPF bằng một tập con bị giới hạn của ngôn ngữ C (restricted C) hoặc các ngôn ngữ bậc cao khác như Rust, được hỗ trợ bởi eBPF. Mã nguồn này sau đó được biên dịch thông qua trình biên dịch Clang/LLVM, sử dụng backend eBPF để chuyển đổi thành mã bytecode eBPF trung gian, thường được đóng gói trong một file định dạng ELF (Executable and Linkable Format). File ELF này chứa cả mã bytecode và các thông tin siêu dữ liệu (metadata) cần thiết cho các bước tiếp theo.
+
+Tiếp theo là giai đoạn tải vào Kernel (Loading). Chương trình bytecode cùng với các cấu hình đi kèm sẽ được tải từ không gian người dùng (user-space) vào không gian kernel thông qua lệnh gọi hệ thống (system call) có tên là bpf(). Trong quá trình tải này, kernel cũng sẽ cấp phát và khởi tạo các cấu trúc dữ liệu đặc biệt gọi là "BPF Maps" (dạng key-value store), cho phép chương trình eBPF và ứng dụng user-space có thể trao đổi dữ liệu với nhau một cách hiệu quả.
+
+Bước quan trọng nhất, được ví như "trái tim" tạo nên sự an toàn của eBPF, là quá trình Xác thực (Verification). Ngay khi bytecode được tải lên, kernel sẽ đưa nó qua một mô-đun gọi là eBPF Verifier (Bộ xác thực). Verifier sẽ thực hiện phân tích tĩnh sâu rộng, kiểm tra hàng ngàn nhánh điều kiện trong đồ thị luồng điều khiển (control flow graph) của chương trình. Cụ thể, Verifier đảm bảo rằng chương trình không chứa bất kỳ vòng lặp vô hạn nào (hoặc nếu có vòng lặp, chúng phải được giới hạn số lần lặp một cách chặt chẽ để tránh làm treo hoặc làm chậm kernel). Đồng thời, nó thực hiện kiểm tra ranh giới bộ nhớ (memory bounds checking) để đảm bảo chương trình không truy cập vào các vùng nhớ trái phép, và bắt buộc chương trình phải có điểm kết thúc rõ ràng, an toàn trong một khoảng thời gian xác định (deterministic execution time).
+
+Nếu vượt qua được sự kiểm duyệt khắt khe của Verifier một cách hoàn hảo, mã bytecode sẽ bước vào giai đoạn Biên dịch JIT (Just-In-Time Compilation). Lúc này, trình biên dịch JIT tích hợp sẵn trong kernel sẽ dịch trực tiếp mã bytecode eBPF thành mã máy gốc (native machine code) tương thích chính xác với kiến trúc CPU của máy chủ đang chạy (ví dụ: x86-64, ARM64...). Việc biên dịch JIT này giúp loại bỏ hoàn toàn chi phí overhead của việc thông dịch (interpreting), cho phép chương trình eBPF chạy với tốc độ gần như tương đương với các hàm kernel được biên dịch sẵn từ trước.
+
+Cuối cùng là giai đoạn Gắn vào Điểm nối (Hooking). Chương trình eBPF đã được biên dịch thành mã máy sẽ được gắn vào các "hook" (điểm bắt sự kiện) cụ thể trong kernel. Khi một sự kiện tương ứng xảy ra tại hook đó, chương trình eBPF sẽ lập tức được kích hoạt để xử lý. Các kiến trúc eBPF hiện đại hỗ trợ một hệ sinh thái hook vô cùng phong phú, bao gồm: Kprobes (để theo dõi các hàm nội bộ của kernel), Uprobes (theo dõi hàm trong không gian user-space), Tracepoints (các điểm theo dõi ổn định do kernel cung cấp), các lệnh gọi hệ thống (syscalls), và đặc biệt là các sự kiện mạng như XDP (eXpress Data Path) hoặc Traffic Control (TC). Tài liệu của Cilium cung cấp cái nhìn cực kỳ chi tiết về cách các hook mạng này tương tác với tập lệnh eBPF và cách sử dụng các thanh ghi (registers) để xử lý gói tin ở tốc độ cao.
 \subsection{BPF Maps}
+
+Các chương trình eBPF thường cần lưu trữ dữ liệu trạng thái hoặc trao đổi thông tin với các thành phần khác của hệ thống trong quá trình thực thi. Tuy nhiên, để đảm bảo tính an toàn và khả năng kiểm soát tài nguyên bên trong kernel, chương trình eBPF không được phép truy cập hoặc ghi dữ liệu một cách tùy ý vào bộ nhớ của hệ điều hành. Để giải quyết vấn đề này, Linux cung cấp cơ chế BPF Maps, đóng vai trò là vùng lưu trữ dữ liệu dùng chung giữa chương trình eBPF và các thành phần khác của hệ thống \cite{linux_bpf_docs}.
+
+BPF Maps là các cấu trúc dữ liệu được quản lý bởi kernel và được tổ chức chủ yếu theo mô hình khóa/giá trị (key-value store). Chúng cho phép các chương trình eBPF lưu trữ thông tin trong quá trình xử lý và duy trì trạng thái giữa nhiều lần thực thi khác nhau. Đồng thời, các ứng dụng ở không gian người dùng (user space) cũng có thể truy cập các Maps thông qua lời gọi hệ thống \texttt{bpf()}, tạo nên cơ chế trao đổi dữ liệu hiệu quả giữa user space và kernel space \cite{linux_bpf_docs}.
+
+Trong các hệ thống giám sát và bảo mật hiện đại, BPF Maps thường được sử dụng để lưu trữ các thông tin thống kê như số lượng gói tin được xử lý, số lượng kết nối đang hoạt động, độ trễ của các dịch vụ hoặc các sự kiện bất thường được phát hiện bởi chương trình eBPF. Dữ liệu này sau đó có thể được các ứng dụng user space đọc theo thời gian thực để phục vụ mục đích giám sát, trực quan hóa hoặc cảnh báo hệ thống \cite{linux_bpf_docs}.
+
+Ngoài vai trò lưu trữ dữ liệu, BPF Maps còn cho phép truyền tham số cấu hình từ user space xuống chương trình eBPF đang chạy trong kernel. Nhờ đó, các chính sách xử lý có thể được thay đổi động mà không cần biên dịch hoặc nạp lại chương trình eBPF. Trong một số trường hợp, Maps còn được sử dụng để hỗ trợ cơ chế Tail Call, cho phép một chương trình eBPF chuyển việc thực thi sang chương trình eBPF khác nhằm xây dựng các pipeline xử lý phức tạp và có khả năng mở rộng cao \cite{linux_bpf_docs}.
+
+Linux hiện hỗ trợ nhiều loại BPF Maps khác nhau nhằm đáp ứng các nhu cầu sử dụng đa dạng. Một trong những loại phổ biến nhất là \texttt{BPF\_MAP\_TYPE\_HASH}, sử dụng cấu trúc bảng băm để lưu trữ dữ liệu theo cặp khóa/giá trị. Đối với các trường hợp cần truy cập dữ liệu thông qua chỉ số cố định với độ trễ thấp, \texttt{BPF\_MAP\_TYPE\_ARRAY} là lựa chọn phù hợp. Để truyền luồng sự kiện từ kernel lên user space với hiệu năng cao, Linux cung cấp \texttt{BPF\_MAP\_TYPE\_RINGBUF}, hoạt động theo cơ chế bộ đệm vòng (ring buffer). Ngoài ra, \texttt{BPF\_MAP\_TYPE\_LRU\_HASH} mở rộng từ Hash Map truyền thống bằng cách tự động loại bỏ các phần tử ít được sử dụng nhất khi đạt tới giới hạn bộ nhớ được cấu hình \cite{linux_bpf_docs}.
+
+Nhờ cơ chế quản lý tập trung trong kernel cùng khả năng chia sẻ dữ liệu hiệu quả giữa nhiều thành phần của hệ thống, BPF Maps đã trở thành một trong những thành phần cốt lõi của kiến trúc eBPF, cho phép xây dựng các ứng dụng mạng, giám sát và bảo mật hiệu năng cao trên Linux \cite{linux_bpf_docs}.
 
 \section{XDP}
 \subsection{Tổng quan và vị trí trong kernel}
+eXpress Data Path (XDP) là một framework xử lý gói tin hiệu năng cao được tích hợp trong Linux kernel, cho phép thực thi các chương trình eBPF tại vị trí rất sớm trong đường đi của gói tin mạng \cite{xdp_docs, castillonduperron2025ebpf}. Không giống các cơ chế xử lý truyền thống như Netfilter hay Traffic Control (TC), XDP được thực thi trực tiếp trong đường nhận gói tin (receive path) của driver mạng trước khi kernel cấp phát cấu trúc \texttt{sk\_buff} (skb) và trước khi gói tin đi vào Linux Networking Stack truyền thống \cite{xdp_docs, linux_skbuff}.
+
+Trong kiến trúc mạng thông thường của Linux, mỗi gói tin nhận được phải trải qua nhiều bước xử lý như cấp phát bộ nhớ cho cấu trúc skb, phân tích các lớp giao thức và chuyển tiếp qua các thành phần khác nhau của network stack \cite{benvenuti2005linux}. Các bước này tạo ra chi phí xử lý đáng kể khi hệ thống phải xử lý lưu lượng mạng lớn. XDP được thiết kế nhằm giảm thiểu chi phí đó bằng cách cho phép kiểm tra, lọc hoặc chuyển hướng gói tin ngay tại tầng driver, từ đó loại bỏ các gói tin không mong muốn trước khi chúng tiêu tốn thêm tài nguyên hệ thống \cite{xdp_docs, cilium_bpf_docs}.
+
+Nhờ tận dụng cơ chế eBPF, các chương trình XDP có thể được nạp động vào kernel mà không cần sửa đổi mã nguồn kernel hoặc phát triển các kernel module riêng biệt. Đồng thời, chương trình vẫn phải vượt qua quá trình xác thực của eBPF Verifier nhằm đảm bảo tính an toàn trước khi được phép thực thi trong kernel \cite{linux_bpf_docs, castillonduperron2025ebpf}.
 \subsection{Các chế độ hoạt động}
+Linux hiện hỗ trợ ba chế độ triển khai XDP khác nhau tùy thuộc vào khả năng của phần cứng và trình điều khiển thiết bị mạng \cite{xdp_docs, cilium_bpf_docs}.
+
+\textbf{Native Mode (Driver XDP)} là chế độ hoạt động phổ biến và mang lại hiệu năng cao nhất. Trong chế độ này, chương trình XDP được thực thi trực tiếp trong đường nhận gói tin của driver mạng trước khi cấu trúc skb được tạo ra. Do đó, nhiều chi phí xử lý của Linux Networking Stack có thể được loại bỏ hoàn toàn \cite{xdp_docs}.
+
+\textbf{Offloaded Mode} cho phép chương trình XDP được thực thi trên các SmartNIC hoặc thiết bị mạng hỗ trợ XDP Offload. Khi đó, một phần hoặc toàn bộ việc xử lý gói tin có thể diễn ra ngay trên phần cứng mạng trước khi dữ liệu được chuyển vào hệ thống chủ \cite{xdp_docs, cilium_bpf_docs}.
+
+\textbf{Generic Mode (Generic XDP)} được sử dụng khi driver mạng không hỗ trợ Native XDP. Trong trường hợp này, chương trình XDP được thực thi ở một vị trí muộn hơn trong Linux Networking Stack sau khi cấu trúc skb đã được cấp phát. Chế độ này cung cấp khả năng tương thích rộng nhưng hiệu năng thấp hơn so với Native Mode do không loại bỏ được chi phí tạo skb \cite{xdp_docs, linux_skbuff}.
 \subsection{Các return code}
-\subsection{So sánh hiệu năng với iptables}
+Một trong những đặc điểm quan trọng nhất của chương trình XDP là khả năng định đoạt số phận của gói tin ngay lập tức thông qua các mã trả về (return codes) sau khi kiểm tra \cite{xdp_docs, cilium_bpf_docs}. Các mã này được định nghĩa sẵn, bao gồm:
+
+\begin{itemize}
+    \item \textbf{XDP\_DROP}: Chỉ thị cho driver mạng loại bỏ gói tin ngay lập tức. Đây là mã trả về cốt lõi cho các ứng dụng tường lửa chống DDoS, giúp tiết kiệm CPU bằng cách vứt bỏ các gói tin ác ý trước khi chúng kịp phân bổ bất kỳ tài nguyên nào.
+    \item \textbf{XDP\_PASS}: Cho phép gói tin đi tiếp vào luồng xử lý mạng tiêu chuẩn (Linux Networking Stack). Gói tin sẽ được cấp phát cấu trúc \texttt{sk\_buff} và đi qua các tầng như Netfilter/Iptables.
+    \item \textbf{XDP\_TX}: Chuyển tiếp (forward) gói tin ngược trở lại chính giao diện mạng (network interface) mà nó vừa đi vào, thường dùng trong cân bằng tải.
+    \item \textbf{XDP\_REDIRECT}: Chuyển hướng gói tin sang một giao diện mạng khác hoặc chuyển thẳng vào một socket (như AF\_XDP) để đưa lên không gian người dùng xử lý (ví dụ: chuyển cho Suricata) mà không qua kernel stack.
+    \item \textbf{XDP\_ABORTED}: Biểu thị chương trình gặp lỗi trong quá trình thực thi. Gói tin bị loại bỏ, và kernel sẽ sinh ra một sự kiện (tracepoint) để phục vụ gỡ lỗi.
+\end{itemize}
 
 \section{Firewall phân tầng}
+Firewall (tường lửa) là một thành phần thiết yếu trong kiến trúc bảo mật mạng, đóng vai trò như một chốt chặn (choke point) kiểm soát luồng giao thông vào ra giữa các mạng \cite{cheswick2003firewalls}. Sự phát triển của các cơ chế kiểm soát truy cập đã dẫn đến sự hình thành của các kỹ thuật lọc phân tầng, từ mức cơ bản ở tầng mạng (Network layer) đến mức phức tạp ở tầng ứng dụng (Application layer) theo mô hình tham chiếu OSI \cite{kurose2017computer, scarfone2009guidelines}.
+
 \subsection{Lọc gói tin tầng 3, tầng 4}
-\subsection{Lọc trạng thái tầng 4}
+Lọc gói tin phi trạng thái (Stateless Packet Filtering) là cơ chế kiểm soát truy cập cơ bản nhất, hoạt động chủ yếu tại tầng 3 (Network) và tầng 4 (Transport). Firewall sẽ kiểm tra từng gói tin một cách độc lập dựa trên các thông tin tĩnh trong mào đầu (header) của gói tin, bao gồm địa chỉ IP nguồn, địa chỉ IP đích, giao thức sử dụng (TCP, UDP, ICMP) và cổng giao tiếp \cite{cheswick2003firewalls}. 
+
+Cơ chế này so sánh thông tin gói tin với một tập hợp các quy tắc (ruleset) được định nghĩa sẵn. Nếu gói tin khớp với một quy tắc cho phép (allow/accept), nó sẽ được đi qua; ngược lại, nếu khớp với quy tắc từ chối (deny/drop), gói tin sẽ bị loại bỏ. Ưu điểm của lọc phi trạng thái là tốc độ xử lý nhanh, chi phí tài nguyên phần cứng thấp do không phải duy trì thông tin về các luồng kết nối \cite{kurose2017computer}. Tuy nhiên, nhược điểm lớn nhất là nó không thể nhận biết được ngữ cảnh của gói tin, ví dụ như không thể phân biệt được một gói tin thuộc về một kết nối đã được thiết lập hợp lệ hay một gói tin giả mạo được gửi rời rạc \cite{scarfone2009guidelines}.
+
+\subsection{Lọc trạng thái tầng 4} 
+Để khắc phục điểm yếu của lọc phi trạng thái, cơ chế kiểm tra trạng thái (Stateful Packet Inspection - SPI) đã được phát triển. SPI không chỉ phân tích các thông tin tĩnh trên header mà còn duy trì một bảng trạng thái (state table) nhằm theo dõi vòng đời của tất cả các kết nối (connections) đang hoạt động đi qua firewall \cite{scarfone2009guidelines}. 
+
+Khi một gói tin đầu tiên của một kết nối (ví dụ gói SYN trong TCP) đi tới, firewall sẽ kiểm tra nó dựa trên tập quy tắc tĩnh. Nếu được phép, một mục nhập (entry) mới sẽ được tạo trong bảng trạng thái lưu lại ngữ cảnh của luồng bao gồm cặp IP, cổng, giao thức và trạng thái kết nối hiện tại. Các gói tin tiếp theo thuộc cùng luồng này sẽ được kiểm tra chéo với bảng trạng thái, từ đó tối ưu hóa hiệu năng xử lý và tăng độ an toàn. Tính năng này giúp ngăn chặn hiệu quả các cuộc tấn công quét cổng lén lút (stealth scan) và chặn các gói tin phản hồi giả mạo không thuộc bất kỳ kết nối hợp lệ nào \cite{kurose2017computer}.
+
 \subsection{Kiểm tra gói tin tầng 7}
+Kiểm tra gói tin sâu (Deep Packet Inspection - DPI) mở rộng khả năng kiểm soát của firewall lên tầng ứng dụng (Layer 7). Khác với kỹ thuật SPI chỉ kiểm tra thông tin điều khiển ở phần header (tầng 3 và tầng 4), DPI tiến hành phân tích toàn bộ phần nội dung thực sự (payload) của gói tin để hiểu chính xác loại dữ liệu và giao thức ứng dụng đang được truyền tải (HTTP, DNS, FTP, v.v.) \cite{scarfone2009guidelines}.
+
+Bằng cách sử dụng các kỹ thuật đối sánh mẫu (pattern matching), phân tích hành vi hoặc giải mã giao thức, DPI có khả năng phát hiện phần mềm độc hại, kiểm soát quyền truy cập theo từng ứng dụng cụ thể và ngăn chặn các nguy cơ rò rỉ dữ liệu \cite{scarfone2009guidelines}. DPI cũng chính là thành phần cốt lõi của các tường lửa thế hệ mới (Next-Generation Firewall - NGFW), kết hợp khả năng kiểm soát truy cập truyền thống với tính năng phát hiện và ngăn chặn xâm nhập (IDS/IPS). Mặc dù đem lại khả năng bảo vệ toàn diện, DPI đòi hỏi năng lực tính toán cực kỳ lớn và có thể gây ra độ trễ cao nếu không được tối ưu hóa bằng phần cứng hoặc sử dụng các cơ chế gia tốc xử lý luồng mạng chuyên dụng \cite{cheswick2003firewalls, kurose2017computer}.
 
 \section{Các dạng tấn công từ chối dịch vụ}
+Tấn công từ chối dịch vụ phân tán (Distributed Denial-of-Service - DDoS) là một trong những mối đe dọa nghiêm trọng nhất đối với tính sẵn sàng của các hệ thống mạng. Bản chất của DDoS là huy động một số lượng lớn các thiết bị bị thỏa hiệp (botnet) để đồng loạt gửi lưu lượng truy cập ác ý nhằm làm cạn kiệt tài nguyên của mục tiêu, khiến các người dùng hợp lệ không thể tiếp cận được dịch vụ \cite{mirkovic2004taxonomy}. Các phương thức tấn công có thể nhắm vào băng thông mạng, tài nguyên hệ điều hành, hoặc các giao thức tầng ứng dụng.
+
 \subsection{Tấn công SYN Flood}
+SYN Flood là một kiểu tấn công cạn kiệt tài nguyên (resource exhaustion) kinh điển nhắm vào quá trình bắt tay ba bước (three-way handshake) của giao thức TCP. Kẻ tấn công gửi liên tục hàng loạt các gói tin yêu cầu kết nối (TCP SYN) đến máy chủ mục tiêu với địa chỉ IP nguồn thường bị giả mạo \cite{mirkovic2004taxonomy, kurose2017computer}. 
+
+Khi nhận được gói SYN, máy chủ sẽ cấp phát tài nguyên trong cấu trúc dữ liệu (như hàng đợi kết nối nửa mở - half-open connection queue), phản hồi bằng gói SYN-ACK và chờ gói ACK cuối cùng từ client. Vì địa chỉ IP nguồn là giả mạo hoặc kẻ tấn công cố tình phớt lờ SYN-ACK, gói ACK cuối cùng sẽ không bao giờ được gửi đến. Kết quả là máy chủ duy trì trạng thái nửa mở cho đến khi hết thời gian chờ (timeout), làm cạn kiệt bảng trạng thái kết nối và từ chối các yêu cầu kết nối TCP hợp lệ sau đó \cite{kurose2017computer}.
+
 \subsection{Tấn công UDP Flood}
+UDP Flood là dạng tấn công làm cạn kiệt băng thông (volumetric attack) phổ biến nhất do đặc tính không trạng thái (stateless) và không yêu cầu thiết lập kết nối của giao thức UDP. Kẻ tấn công gửi một khối lượng khổng lồ các gói tin UDP chứa payload rác đến các cổng ngẫu nhiên trên máy chủ mục tiêu \cite{mirkovic2004taxonomy}.
+
+Khi máy chủ nhận được một gói tin UDP, nó phải kiểm tra xem có ứng dụng nào đang lắng nghe trên cổng đích hay không. Nếu không có ứng dụng nào, máy chủ phải trả lời bằng một thông điệp ICMP Destination Unreachable. Dưới áp lực của hàng triệu gói tin UDP mỗi giây, việc kiểm tra và phản hồi này sẽ làm cạn kiệt cả tài nguyên CPU lẫn băng thông mạng của nạn nhân. Hơn nữa, vì UDP không có cơ chế điều khiển tắc nghẽn (congestion control), nó rất dễ bị lạm dụng để tạo ra các luồng dữ liệu khổng lồ \cite{kurose2017computer}.
+
 \subsection{Tấn công HTTP Flood}
+Khác với SYN hay UDP Flood nhắm vào các tầng thấp, HTTP Flood là kiểu tấn công ở tầng ứng dụng (Layer 7). Trong dạng tấn công này, botnet được sử dụng để gửi các yêu cầu HTTP (thường là GET hoặc POST) dường như hoàn toàn hợp lệ đến máy chủ web nhằm làm quá tải năng lực xử lý \cite{mirkovic2004taxonomy}. 
+
+Ví dụ, kẻ tấn công có thể yêu cầu tải liên tục các tệp tin có kích thước lớn hoặc liên tục truy vấn các endpoint yêu cầu máy chủ phải thực hiện truy vấn cơ sở dữ liệu phức tạp. Ưu điểm của HTTP Flood đối với kẻ tấn công là nó tiêu tốn ít băng thông hơn so với các cuộc tấn công volumetric nhưng lại gây ra tác động phá hoại lớn đến hệ thống đích, do việc xử lý một yêu cầu HTTP tốn nhiều tài nguyên CPU và RAM của máy chủ hơn rất nhiều so với việc sinh ra yêu cầu đó \cite{cambiaso2013slow}.
+
 \subsection{Slowloris}
+Slowloris là một dạng tấn công từ chối dịch vụ tốc độ thấp (low-and-slow DDoS) đặc biệt nguy hiểm nhắm vào các máy chủ web truyền thống phân bổ tài nguyên theo luồng (thread-based) như Apache. Khác với HTTP Flood dựa vào số lượng lớn yêu cầu, Slowloris hoạt động bằng cách mở nhiều kết nối hợp lệ đến máy chủ web và cố gắng giữ chúng mở càng lâu càng tốt \cite{cambiaso2013slow}.
+
+Kẻ tấn công thực hiện điều này bằng cách gửi các yêu cầu HTTP không hoàn chỉnh (thiếu ký tự kết thúc header \verb|\r\n\r\n|) và định kỳ gửi các HTTP header rác với tốc độ rất chậm để làm mới thời gian chờ (timeout) của máy chủ \cite{cambiaso2013slow}. Do máy chủ web bắt buộc phải giữ luồng kết nối mở để chờ nhận toàn bộ yêu cầu, bảng giới hạn kết nối đồng thời (connection pool) sẽ nhanh chóng bị lấp đầy, ngăn chặn hoàn toàn việc phục vụ các kết nối mới từ người dùng hợp lệ.
+
 \subsection{IP Spoofing và Random Source Flooding}
+IP Spoofing (Giả mạo IP) là một kỹ thuật cốt lõi được sử dụng trong nhiều cuộc tấn công mạng, đặc biệt là DDoS. Kẻ tấn công sửa đổi địa chỉ IP nguồn trong tiêu đề gói tin IP thành một địa chỉ giả mạo. Điều này mang lại hai lợi thế lớn: thứ nhất, gây khó khăn cho việc truy vết nguồn gốc thực sự của lưu lượng tấn công; thứ hai, buộc các gói tin phản hồi (nếu có) từ nạn nhân phải gửi đến các địa chỉ không liên quan, tạo ra các cuộc tấn công khuếch đại phản xạ (Reflection Amplification Attack) \cite{mirkovic2004taxonomy}.
+
+Random Source Flooding là sự kết hợp của IP Spoofing, trong đó kẻ tấn công tạo ra một luồng gói tin ngập lụt với địa chỉ IP nguồn được tạo ngẫu nhiên (randomized) liên tục cho từng gói tin \cite{mirkovic2004taxonomy}. Hành vi này vô hiệu hóa các cơ chế bảo vệ dựa trên việc đếm tần suất kết nối hoặc chặn IP truyền thống (như Iptables), buộc các firewall phải sử dụng các cơ chế phân tích nâng cao hoặc duy trì các bảng trạng thái khổng lồ, dẫn đến nguy cơ tự làm quá tải hệ thống bảo vệ.
 
 \section{Random Early Detection (RED) và Weighted RED (WRED)}
 \subsection{Cơ chế Random Early Detection (RED)}
+Trong các thiết bị mạng truyền thống, cơ chế quản lý hàng đợi (Queue Management) phổ biến nhất là Tail Drop: khi hàng đợi (buffer) đầy, bất kỳ gói tin nào mới đến cũng sẽ bị loại bỏ. Tuy nhiên, cơ chế này gây ra hiện tượng đồng bộ hóa toàn cục (global synchronization), trong đó nhiều kết nối TCP cùng bị rớt gói, cùng giảm tốc độ truyền (slow start), và cùng tăng tốc trở lại, dẫn đến tình trạng sử dụng băng thông không hiệu quả \cite{floyd1993random}.
+
+Để giải quyết vấn đề này, cơ chế Random Early Detection (RED) được Sally Floyd và Van Jacobson giới thiệu vào năm 1993 \cite{floyd1993random}. RED là một thuật toán quản lý hàng đợi chủ động (Active Queue Management - AQM). Thay vì đợi đến khi hàng đợi đầy, RED liên tục giám sát kích thước trung bình của hàng đợi. Khi kích thước trung bình vượt qua một ngưỡng tối thiểu (minimum threshold), thiết bị mạng bắt đầu chủ động loại bỏ (drop) gói tin một cách ngẫu nhiên với xác suất tăng dần theo kích thước hàng đợi \cite{floyd1993random, rfc2309}. Việc loại bỏ gói tin ngẫu nhiên đóng vai trò như một tín hiệu cảnh báo sớm, thông báo cho các bên gửi TCP giảm tốc độ truyền trước khi tình trạng tắc nghẽn thực sự xảy ra, từ đó duy trì hiệu năng mạng ổn định.
+
 \subsection{Weighted RED và ưu tiên theo loại traffic}
+Weighted Random Early Detection (WRED) là một sự mở rộng của cơ chế RED, thường được triển khai trên các thiết bị định tuyến và tường lửa nhằm hỗ trợ Chất lượng dịch vụ (Quality of Service - QoS). Nếu như RED đối xử công bằng với tất cả các luồng giao thông thì WRED cho phép áp dụng các chính sách loại bỏ gói tin khác nhau dựa trên mức độ ưu tiên của dữ liệu \cite{rfc2309}.
+
+WRED phân loại gói tin dựa trên các thông số như IP Precedence hoặc DSCP (Differentiated Services Code Point) trong phần header của gói tin IP. Mỗi nhóm phân loại sẽ được gắn một mức trọng số (weight) với các thông số cấu hình RED riêng biệt (gồm ngưỡng tối thiểu, ngưỡng tối đa và tỷ lệ loại bỏ tối đa). Nhờ vậy, khi mạng bắt đầu có dấu hiệu tắc nghẽn, WRED sẽ ưu tiên loại bỏ các gói tin thuộc luồng dữ liệu ít quan trọng (ví dụ như luồng tải file) trước, trong khi cố gắng bảo vệ tối đa các gói tin thuộc luồng dữ liệu ưu tiên cao (như Voice over IP hoặc Video Streaming) khỏi việc bị loại bỏ \cite{rfc2309}.
+
 \subsection{Ứng dụng Probabilistic Drop trong môi trường DDoS}
+Mặc dù RED và WRED ban đầu được thiết kế để kiểm soát tắc nghẽn do lưu lượng hợp lệ gây ra, tư duy cốt lõi của chúng — loại bỏ gói tin dựa trên xác suất (Probabilistic Drop) — lại mang đến những ứng dụng đáng giá trong việc giảm thiểu (mitigation) các cuộc tấn công DDoS ngập lụt băng thông (Volumetric DDoS). 
+
+Trong bối cảnh bị tấn công DDoS cường độ cao, việc cố gắng xử lý và phân tích 100\% lượng gói tin khổng lồ thường sẽ làm kiệt quệ tài nguyên xử lý (CPU/RAM) của hệ thống Firewall hoặc IPS. Khi áp dụng cơ chế Probabilistic Drop, hệ thống bảo vệ có thể thiết lập các chính sách chủ động loại bỏ ngẫu nhiên một phần lưu lượng ngay tại tầng mạng thấp khi nhận thấy băng thông hoặc mức độ sử dụng CPU vượt ngưỡng an toàn. 
+
+Hơn thế nữa, bằng cách kết hợp tư tưởng phân loại của WRED, hệ thống phòng thủ có thể tính toán "độ tin cậy" của các địa chỉ IP hoặc định danh luồng (flow ID). Các luồng kết nối có dấu hiệu bất thường (ví dụ: tần suất gửi cao đột biến) sẽ bị áp dụng xác suất rớt gói cao, trong khi các luồng từ người dùng đã xác thực hoặc có lịch sử truy cập tốt sẽ được bảo vệ với tỷ lệ rớt gói cực kỳ thấp. Điều này giúp hệ thống mạng vừa có khả năng sinh tồn qua các đợt DDoS khốc liệt, vừa duy trì được chất lượng dịch vụ (QoS) cao nhất có thể cho lượng tối đa khách hàng hợp lệ \cite{floyd1993random}.
 
 \section{GeoIP, ASN và định dạng MMDB}
-\subsection{Tên của kiến thức nền tảng số 2.1}
+\subsection{Khái niệm GeoIP và ASN}
+GeoIP (Geolocation IP) là công nghệ cho phép xác định vị trí địa lý vật lý của một thiết bị kết nối Internet thông qua địa chỉ IP của nó. Thông tin GeoIP thường bao gồm quốc gia, thành phố, vĩ độ, kinh độ và mã vùng \cite{maxmind2025mmdb}. Trong an toàn thông tin, GeoIP đóng vai trò quan trọng để xây dựng các tập luật tường lửa dựa trên vị trí (Geo-blocking), giúp ngăn chặn các luồng truy cập bất thường đến từ các quốc gia không nằm trong tệp khách hàng hoặc là nguồn gốc thường xuyên của các mạng botnet.
+
+Autonomous System Number (ASN) là một định danh duy nhất trên toàn cầu được gán cho một Hệ thống tự trị (Autonomous System - AS). Một AS là một nhóm các mạng IP được vận hành bởi một hoặc nhiều nhà khai thác mạng (như ISP, tập đoàn viễn thông) có chung một chính sách định tuyến thống nhất \cite{kurose2017computer}. Việc nhận diện ASN giúp quản trị viên chặn toàn bộ dải IP của một nhà cung cấp đám mây hoặc một trung tâm dữ liệu cụ thể, những nơi thường bị lạm dụng để làm nguồn phát động tấn công DDoS.
+
+\subsection{Định dạng cơ sở dữ liệu MaxMind DB (MMDB)}
+MaxMind DB (MMDB) là một định dạng tệp cơ sở dữ liệu nhị phân chuyên dụng, được thiết kế tối ưu hóa cho tốc độ tra cứu (lookup) địa chỉ IP ở hiệu suất cực cao \cite{maxmind2025mmdb}. Cấu trúc của MMDB sử dụng cây tìm kiếm nhị phân (binary search tree), trong đó không gian địa chỉ IPv4 và IPv6 được phân nhánh thành các nút (nodes). Việc tìm kiếm một địa chỉ IP chỉ đòi hỏi duy nhất việc duyệt qua các bit của IP từ gốc cây xuống lá, mang lại độ phức tạp thời gian gần như tĩnh (O(1)).
+
+So với việc sử dụng các file CSV truyền thống đòi hỏi phân tích chuỗi (string parsing) đắt đỏ tốn nhiều tài nguyên CPU, MMDB mang lại tốc độ tra cứu đạt hàng triệu truy vấn mỗi giây. Điều này khiến nó trở thành định dạng tiêu chuẩn trong các hệ thống Firewall và IDS hiệu năng cao (như XDP và Suricata) phục vụ phân tích IP thời gian thực.
 
 \section{Iptables và Nftables}
+\subsection{Kiến trúc Iptables và Netfilter}
+Iptables là công cụ quản trị tường lửa không gian người dùng (user-space) kinh điển trên Linux, hoạt động bằng cách giao tiếp trực tiếp với framework Netfilter bên trong kernel. Netfilter cung cấp một tập hợp các điểm neo (hooks) ở các vị trí khác nhau trong quá trình xử lý gói tin (như PREROUTING, INPUT, FORWARD, OUTPUT, POSTROUTING) \cite{benvenuti2005linux}. Khi một gói tin đi qua các hook này, Iptables áp dụng các tập quy tắc (rulesets) đã được định nghĩa trong các bảng (tables) và chuỗi (chains) để quyết định số phận của gói tin (ACCEPT, DROP, REJECT). Tuy nhiên, kiến trúc của Iptables gặp phải hạn chế nghiêm trọng về mặt hiệu năng khi số lượng quy tắc tăng lên hàng vạn, do cơ chế duyệt quy tắc tuần tự (linear processing) gây ra độ trễ quá lớn \cite{benvenuti2005linux}.
+
+\subsection{Sự chuyển dịch sang Nftables}
+Nftables được phát triển để thay thế Iptables, giải quyết các hạn chế về cấu trúc cứng nhắc và hiệu năng. Nftables hợp nhất các công cụ riêng lẻ (iptables, ip6tables, arptables, ebtables) thành một framework duy nhất. Điểm khác biệt cốt lõi là Nftables sử dụng một máy ảo (pseudo-state machine) bên trong kernel. Thay vì kernel phải chứa mã nguồn để hiểu từng giao thức một, Nftables biên dịch các quy tắc từ user-space thành một tập lệnh bytecode rút gọn, sau đó kernel chỉ việc thực thi bytecode đó. Đặc biệt, Nftables hỗ trợ kiến trúc dữ liệu Set và Map, cho phép tra cứu hàng vạn địa chỉ IP với độ trễ logarit thay vì tuyến tính, tối ưu hóa triệt để tường lửa trong môi trường mạng quy mô lớn.
 
 \section{Suricata}
+\subsection{Tổng quan về Suricata}
+Suricata là hệ thống phân tích mạng, phát hiện và ngăn chặn xâm nhập (IDS/IPS) mã nguồn mở mạnh mẽ, được vận hành bởi Open Information Security Foundation (OISF). Sự khác biệt lớn nhất của Suricata so với công cụ đời đầu như Snort nằm ở kiến trúc đa luồng (multi-threaded) gốc. Kiến trúc này cho phép Suricata khai thác trọn vẹn sức mạnh xử lý của các hệ thống CPU đa nhân hiện đại, phân bổ xử lý luồng mạng lên nhiều lõi khác nhau để đáp ứng băng thông giám sát lên tới hàng chục Gbps \cite{suricata_docs}.
 
-\section{ Connection Tracking (Conntrack)}
+\subsection{Vai trò trong kiểm tra gói tin sâu (DPI)}
+Với tư cách là một engine phân tích ở tầng ứng dụng (DPI), Suricata có khả năng lắp ráp lại (reassemble) các luồng TCP, giải mã và phân tích nội dung của hàng loạt giao thức phức tạp (HTTP, TLS, DNS, SMB) \cite{suricata_docs}. Trong chế độ ngăn chặn chủ động (IPS), Suricata tích hợp chặt chẽ với Netfilter (qua NFQUEUE) hoặc eBPF/XDP để ra lệnh DROP lập tức các gói tin mang theo chữ ký tấn công (signature), chẳng hạn như mã độc, khai thác SQL hay các luồng HTTP Flood tinh vi ngụy trang thành người dùng hợp pháp.
 
+\section{Connection Tracking (Conntrack)}
+\subsection{Nguyên lý hoạt động}
+Connection Tracking (Conntrack) là mô-đun cốt lõi của Linux Netfilter, cung cấp khả năng tường lửa trạng thái (Stateful Firewall) \cite{ayuso2006netfilter}. Để theo dõi vòng đời kết nối, Conntrack trích xuất bộ tham số (tuple) từ gói tin bao gồm: IP nguồn, IP đích, Cổng nguồn, Cổng đích và Giao thức L4. Sử dụng bộ tuple này, Conntrack khởi tạo và duy trì một mục (entry) trong bảng băm (hash table) của kernel để theo dõi các trạng thái của kết nối như NEW, ESTABLISHED, RELATED hoặc INVALID \cite{ayuso2006netfilter, benvenuti2005linux}.
 
-\textbf{Lưu ý}: Mỗi chương nên có đoạn kết thúc chương,  tổng kết lại các nội dung đã trình bày.
+\subsection{Conntrack trong các hệ thống hiệu năng cao}
+Conntrack là xương sống của cơ chế NAT và bảo mật Linux. Khi một luồng gói tin đã đạt trạng thái ESTABLISHED, firewall có thể sử dụng cờ này để bỏ qua việc quét lại toàn bộ bộ luật phức tạp và tự động cho phép gói tin đi qua, giúp giảm thiểu tải CPU. Tuy nhiên, trong các đợt DDoS ngập lụt, đặc biệt là IP Spoofing, bảng hash table của Conntrack rất dễ bị lấp đầy (tình trạng "conntrack table full") \cite{ayuso2006netfilter}. Lúc này, kernel sẽ buộc phải vứt bỏ các gói tin mới đến do không còn không gian bộ nhớ để lưu trạng thái. Vì thế, việc tinh chỉnh timeout và cấu hình giới hạn bảng Conntrack, kết hợp thả lỏng (stateless) cho các luồng không cần thiết là kỹ thuật sinh tồn bắt buộc cho các máy chủ đối mặt với DDoS.
+
+\section{Tổng kết chương}
+Chương này đã giới thiệu toàn diện những cơ sở lý thuyết tạo nên một hệ thống bảo vệ mạng hiện đại. Quá trình di chuyển của gói tin qua Linux Networking Stack, sức mạnh mở rộng của eBPF và XDP, cùng kiến trúc của các hệ thống như Netfilter, Iptables/Nftables và Suricata đã làm rõ bức tranh xử lý và phân tích dữ liệu ở cả không gian nhân (kernel) lẫn ứng dụng. Sự hiểu biết sâu sắc về các chiến lược tấn công từ chối dịch vụ (DDoS) và những cơ chế phòng thủ chủ động như Stateful Firewall, Geo-blocking qua MMDB hay quản lý hàng đợi WRED cung cấp các luận cứ khoa học quan trọng. Những nền tảng lý thuyết này sẽ là tiền đề vững chắc phục vụ trực tiếp cho quá trình phân tích thiết kế, cài đặt và đánh giá hiệu năng kiến trúc tường lửa phân tầng trong các chương tiếp theo của đồ án.
 
 \end{document}
